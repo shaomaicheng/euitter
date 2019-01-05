@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 
 typedef DialogClick = void Function();
 
+const euiDialogBg = Color.fromARGB(0xf2, 0xff, 0xff, 0xff);
+
 /// 简单对话框
 /// barrierDismissible 点击其他区域是否会消失
 /// title 标题
 /// message 信息
 /// btnTitle 单按钮的文案
 /// dialogClick 点击按钮的行为
-void ShowEUISimpleDialog({
-  @required BuildContext context,
-  bool barrierDismissible = true,
-  @required String title,
-  String message = '',
-  @required String btnTitle,
-  DialogClick dialogClick
-}) {
+void ShowEUISimpleDialog(
+    {@required BuildContext context,
+    bool barrierDismissible = true,
+    @required String title,
+    String message = '',
+    @required String btnTitle,
+    DialogClick dialogClick}) {
   showDialog(
       context: context,
       barrierDismissible: barrierDismissible,
@@ -24,7 +25,7 @@ void ShowEUISimpleDialog({
           child: Container(
             width: 271.0,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: euiDialogBg,
               borderRadius: BorderRadius.all(Radius.circular(4.0)),
             ),
             child: Column(
@@ -48,8 +49,7 @@ void ShowEUISimpleDialog({
                             color: Color.fromARGB(0xff, 0x2E, 0x86, 0xFF),
                             fontSize: 17.0,
                             fontWeight: FontWeight.normal,
-                            decoration: TextDecoration.none
-                        ),
+                            decoration: TextDecoration.none),
                       ),
                     ),
                   ),
@@ -79,7 +79,7 @@ void showEUIWarningDialog({
           child: Container(
             width: 271.0,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: euiDialogBg,
               borderRadius: BorderRadius.all(Radius.circular(4.0)),
             ),
             child: Column(
@@ -99,8 +99,7 @@ void showEUIWarningDialog({
                             color: Color.fromARGB(0xff, 0xFA, 0x4A, 0x23),
                             fontSize: 17.0,
                             fontWeight: FontWeight.normal,
-                            decoration: TextDecoration.none
-                        ),
+                            decoration: TextDecoration.none),
                       ),
                     ),
                   ),
@@ -119,16 +118,21 @@ void showEUIWarningDialog({
 /// 正面按钮点击事件
 /// 反面按钮文字
 /// 反面按钮点击事件
-void ShowEUIAlertDialog({
-  @required BuildContext context,
-  bool barrierDismissible = true,
-  @required String title,
-  String message = '',
-  @required String positiveTitle,
-  @required DialogClick positiveClick,
-  @required String negativeTitle,
-  @required DialogClick negativeClick
-}) {
+/// 是否有一个输入框
+/// 输入框的隐藏文字
+/// 输入框内容变化的监听回调
+void showEUIAlertDialog(
+    {@required BuildContext context,
+    bool barrierDismissible = true,
+    @required String title,
+    String message = '',
+    @required String positiveTitle,
+    @required DialogClick positiveClick,
+    @required String negativeTitle,
+    @required DialogClick negativeClick,
+    bool hasInputBox = false,
+    String hintText = '请输入文字',
+    ValueChanged<String> valueChanged}) {
   showDialog(
       context: context,
       barrierDismissible: barrierDismissible,
@@ -137,44 +141,49 @@ void ShowEUIAlertDialog({
           child: Container(
             width: 271.0,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: euiDialogBg,
               borderRadius: BorderRadius.all(Radius.circular(4.0)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                EUIDialogHeader(title),
+                EUIDialogHeader(
+                  title,
+                  message: message,
+                  hasInputBox: hasInputBox,
+                  valueChanged: valueChanged,
+                ),
                 Container(
-                  height: 44.0,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Center(
-                          child: GestureDetector(
-                            onTap: positiveClick,
-                            child: Text(
-                              positiveTitle,
-                              style: TextStyle(
-                                  color: Color.fromARGB(0xff, 0x2E, 0x86, 0xFF),
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.normal,
-                                  decoration: TextDecoration.none
+                    height: 44.0,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Center(
+                            child: GestureDetector(
+                              onTap: positiveClick,
+                              child: Text(
+                                positiveTitle,
+                                style: TextStyle(
+                                    color:
+                                        Color.fromARGB(0xff, 0x2E, 0x86, 0xFF),
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.none),
                               ),
                             ),
                           ),
+                          flex: 1,
                         ),
-                        flex: 1,
-                      ),
-                      Container(
-                        width: 1.0,
-                        height: 44.0,
-                        color: Color.fromARGB(0xff, 0xE6, 0xE7, 0xEB),
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: GestureDetector(
+                        Container(
+                          width: 1.0,
+                          height: 44.0,
+                          color: Color.fromARGB(0xff, 0xE6, 0xE7, 0xEB),
+                        ),
+                        Expanded(
+                          child: Center(
+                              child: GestureDetector(
                             onTap: negativeClick,
                             child: Text(
                               negativeTitle,
@@ -182,16 +191,13 @@ void ShowEUIAlertDialog({
                                   color: Color.fromARGB(0xff, 0x2E, 0x86, 0xFF),
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.normal,
-                                  decoration: TextDecoration.none
-                              ),
+                                  decoration: TextDecoration.none),
                             ),
-                          )
+                          )),
+                          flex: 1,
                         ),
-                        flex: 1,
-                      ),
-                    ],
-                  )
-                )
+                      ],
+                    ))
               ],
             ),
           ),
@@ -199,12 +205,55 @@ void ShowEUIAlertDialog({
       });
 }
 
-class EUIDialogHeader extends StatelessWidget {
+///  拥有一个文本输入框的选择提示对话框
+/// alert 对话框
+/// title 标题
+/// message 信息，可以不传
+/// 正面按钮文字
+/// 正面按钮点击事件
+/// 反面按钮文字
+/// 反面按钮点击事件
+/// 是否有一个输入框
+/// 输入框的隐藏文字
+/// 输入框内容变化的监听回调
+showEUIInputAlertDialog(
+    {@required BuildContext context,
+    bool barrierDismissible = true,
+    @required String title,
+    String message = '',
+    @required String positiveTitle,
+    @required DialogClick positiveClick,
+    @required String negativeTitle,
+    @required DialogClick negativeClick,
+    String hintText,
+    ValueChanged<String> valueChanged}) {
+  showEUIAlertDialog(
+    context: context,
+    barrierDismissible: barrierDismissible,
+    title: title,
+    positiveTitle: positiveTitle,
+    positiveClick: positiveClick,
+    negativeTitle: negativeTitle,
+    negativeClick: negativeClick,
+    message: message,
+    hasInputBox: true,
+    hintText: hintText,
+    valueChanged: valueChanged
+  );
+}
 
+class EUIDialogHeader extends StatelessWidget {
   String message;
   String title;
+  bool hasInputBox;
+  String hintText;
+  ValueChanged<String> valueChanged;
 
-  EUIDialogHeader(this.title, {this.message = ''}) {}
+  EUIDialogHeader(this.title,
+      {this.message = '',
+      this.hasInputBox = false,
+      this.hintText = '请输入文字',
+      this.valueChanged}) {}
 
   @override
   Widget build(BuildContext context) {
@@ -241,6 +290,37 @@ class EUIDialogHeader extends StatelessWidget {
             ),
           ),
         ),
+        Offstage(
+          offstage: !hasInputBox,
+          child: Container(
+            margin: EdgeInsets.only(top: 15.0, left: 17.0, right: 15.0),
+            child: Form(
+                child: Card(
+                    child: Container(
+              child: TextField(
+                onChanged: valueChanged,
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(
+                        left: 5.0, right: 5.0, top: 8.0, bottom: 8.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(4.0),
+                        ),
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(0xff, 0xE6, 0xE7, 0xEB),
+                            width: 1.0)),
+                    hintText: hintText,
+                    hintStyle: TextStyle(
+                      fontSize: 13.0,
+                      color: Color.fromARGB(0xff, 0xC8, 0xCB, 0xD4),
+                    )),
+                style: TextStyle(
+                    color: Color.fromARGB(0xff, 0x2A, 0x33, 0x3A),
+                    fontSize: 13.0),
+              ),
+            ))),
+          ),
+        ),
         Container(
           margin: EdgeInsets.only(top: 20.0),
           height: 1.0,
@@ -249,5 +329,4 @@ class EUIDialogHeader extends StatelessWidget {
       ],
     );
   }
-
 }

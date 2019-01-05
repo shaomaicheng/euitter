@@ -62,6 +62,7 @@ class ButtonWidget extends StatelessWidget {
 }
 
 class DialogWidget extends StatelessWidget {
+  String inputText = '';
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -99,7 +100,7 @@ class DialogWidget extends StatelessWidget {
                         width: 200.0,
                         title: '提示选择对话框',
                         onClick: () {
-                          ShowEUIAlertDialog(
+                          showEUIAlertDialog(
                               context: context,
                               message: '简单选择对话框',
                               title: '标题',
@@ -124,7 +125,7 @@ class DialogWidget extends StatelessWidget {
                         width: 200.0,
                         title: '只有标题的简单对话框',
                         onClick: () {
-                          ShowEUIAlertDialog(
+                          showEUIAlertDialog(
                               context: context,
                               title: '标题',
                               positiveTitle: '是',
@@ -152,6 +153,38 @@ class DialogWidget extends StatelessWidget {
                               context: context,
                               title: '标题',
                               warningText: '警告文字'
+                          );
+                        },
+                      ),
+                    )),
+                Container(
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: EUIButton(
+                        width: 200.0,
+                        title: '带输入框的提示对话框',
+                        onClick: () {
+                          showEUIInputAlertDialog(
+                              context: context,
+                              title: '标题',
+                              message: 'message',
+                              positiveTitle: '是',
+                              positiveClick: () {
+                                Navigator.of(context).pop();
+                                Scaffold.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('输入的值：${inputText}'),
+                                  )
+                                );
+                              },
+                              negativeClick: () {
+
+                              },
+                            negativeTitle: '否',
+                            hintText: '提示输入文字',
+                            valueChanged: (value) {
+                                inputText = value;
+                            }
                           );
                         },
                       ),

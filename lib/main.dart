@@ -9,7 +9,8 @@ class EUIAPP extends StatelessWidget {
     return MaterialApp(
       title: 'EUI',
       routes: {
-        '/button': (context) => ButtonWidget()
+        '/button': (context) => ButtonWidget(),
+        '/dialog': (context) => DialogWidget(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -45,7 +46,8 @@ class ERouter {
 class EUIWidget extends StatelessWidget {
 
   var routerData = [
-    ERouter('/button', '按钮')
+    ERouter('/button', '按钮'),
+    ERouter('/dialog', '对话框'),
   ];
 
   @override

@@ -329,6 +329,7 @@ Widget _androidAlertDialogWidget(
             message: message,
             hintText: hintText,
             valueChanged: valueChanged,
+            hasInputBox: hasInputBox,
           ),
           Container(
             margin: EdgeInsets.only(top: 30.0, right: 20.0, bottom: 20.0),
@@ -493,6 +494,7 @@ class EUIAndroidDialogHeader extends StatelessWidget {
   EUIAndroidDialogHeader(
       {this.title = '',
       this.message = '',
+      this.hasInputBox = false,
       this.hintText = '请输入文字',
       this.valueChanged});
 
@@ -534,20 +536,23 @@ class EUIAndroidDialogHeader extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-          child: Card(
-            child: TextField(
-              onChanged: valueChanged,
-              decoration: InputDecoration(
-                  hintText: hintText,
-                  hintStyle: TextStyle(
-                    fontSize: 13.0,
-                    color: Color.fromARGB(0xff, 0xC8, 0xCB, 0xD4),
-                  )),
-              style: TextStyle(
-                  color: Color.fromARGB(0xff, 0x2A, 0x33, 0x3A),
-                  fontSize: 13.0),
+        Offstage(
+          offstage: !hasInputBox,
+          child: Container(
+            margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+            child: Card(
+              child: TextField(
+                onChanged: valueChanged,
+                decoration: InputDecoration(
+                    hintText: hintText,
+                    hintStyle: TextStyle(
+                      fontSize: 13.0,
+                      color: Color.fromARGB(0xff, 0xC8, 0xCB, 0xD4),
+                    )),
+                style: TextStyle(
+                    color: Color.fromARGB(0xff, 0x2A, 0x33, 0x3A),
+                    fontSize: 13.0),
+              ),
             ),
           ),
         )

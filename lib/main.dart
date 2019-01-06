@@ -11,6 +11,7 @@ class EUIAPP extends StatelessWidget {
       routes: {
         '/button': (context) => ButtonWidget(),
         '/dialog': (context) => DialogWidget(),
+        '/toast': (context) => ToastWidget(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -48,6 +49,7 @@ class EUIWidget extends StatelessWidget {
   var routerData = [
     ERouter('/button', '按钮'),
     ERouter('/dialog', '对话框'),
+    ERouter('/toast', 'toast'),
   ];
 
   @override

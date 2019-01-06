@@ -197,3 +197,23 @@ class DialogWidget extends StatelessWidget {
     );
   }
 }
+
+class ToastWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'toast'
+        ),
+      ),
+      body: Builder(
+        builder: (context) {
+          return Container(
+          );
+        },
+      ),
+    );
+  }
+
+}

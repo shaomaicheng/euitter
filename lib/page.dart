@@ -1,6 +1,7 @@
 import 'package:eui/dialog.dart';
 import 'package:flutter/material.dart';
 import 'button.dart';
+import 'toast.dart';
 
 class ButtonWidget extends StatelessWidget {
   @override
@@ -63,6 +64,7 @@ class ButtonWidget extends StatelessWidget {
 
 class DialogWidget extends StatelessWidget {
   String inputText = '';
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -152,8 +154,7 @@ class DialogWidget extends StatelessWidget {
                           showEUIWarningDialog(
                               context: context,
                               title: '标题',
-                              warningText: '警告文字'
-                          );
+                              warningText: '警告文字');
                         },
                       ),
                     )),
@@ -171,21 +172,16 @@ class DialogWidget extends StatelessWidget {
                               positiveTitle: '是',
                               positiveClick: () {
                                 Navigator.of(context).pop();
-                                Scaffold.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('输入的值：${inputText}'),
-                                  )
-                                );
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text('输入的值：${inputText}'),
+                                ));
                               },
-                              negativeClick: () {
-
-                              },
-                            negativeTitle: '否',
-                            hintText: '提示输入文字',
-                            valueChanged: (value) {
+                              negativeClick: () {},
+                              negativeTitle: '否',
+                              hintText: '提示输入文字',
+                              valueChanged: (value) {
                                 inputText = value;
-                            }
-                          );
+                              });
                         },
                       ),
                     )),
@@ -203,17 +199,42 @@ class ToastWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'toast'
-        ),
+        title: Text('toast'),
       ),
       body: Builder(
         builder: (context) {
           return Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 20.0),
+                  child: Center(
+                    child: EUIButton(
+                      width: 200.0,
+                      title: '弹一条普通的toast',
+                      onClick: () {
+                        Toast.showToast(context, '这是一条普通的toast');
+                      },
+                    ),
+                  )
+                ),
+                Container(
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: EUIButton(
+                        width: 200.0,
+                        title: '弹一条文字长的toast',
+                        onClick: () {
+                          Toast.showToast(context, '这是一条普通的toast啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊');
+                        },
+                      ),
+                    )
+                )
+              ],
+            ),
           );
         },
       ),
     );
   }
-
 }

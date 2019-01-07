@@ -12,6 +12,7 @@ class EUIAPP extends StatelessWidget {
         '/button': (context) => ButtonWidget(),
         '/dialog': (context) => DialogWidget(),
         '/toast': (context) => ToastWidget(),
+        '/empty': (context) => EmptyWidget(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -50,6 +51,7 @@ class EUIWidget extends StatelessWidget {
     ERouter('/button', '按钮'),
     ERouter('/dialog', '对话框'),
     ERouter('/toast', 'toast'),
+    ERouter('/empty', '空视图'),
   ];
 
   @override

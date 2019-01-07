@@ -2,6 +2,7 @@ import 'package:eui/dialog.dart';
 import 'package:flutter/material.dart';
 import 'button.dart';
 import 'toast.dart';
+import 'empty.dart';
 
 class ButtonWidget extends StatelessWidget {
   @override
@@ -237,4 +238,27 @@ class ToastWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+
+class EmptyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '空视图'
+        ),
+      ),
+      body: Builder(
+        builder: (context) {
+          return Container(
+            child: EUIEmptyWidget(message: '暂时没有观看记录',),
+          );
+        },
+      ),
+    );
+  }
+
 }

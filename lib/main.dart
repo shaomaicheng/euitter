@@ -44,10 +44,9 @@ class ERouter {
   ERouter(this.routerName, this.showTitle);
 
 }
-
 class EUIWidget extends StatelessWidget {
 
-  var routerData = [
+  final List<ERouter> routerData = [
     ERouter('/button', '按钮'),
     ERouter('/dialog', '对话框'),
     ERouter('/toast', 'toast'),
@@ -56,7 +55,6 @@ class EUIWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       child: ListView.builder(
         itemCount: routerData.length,

@@ -12,7 +12,7 @@ const euiDialogBg = Color.fromARGB(0xf2, 0xff, 0xff, 0xff);
 /// message 信息
 /// btnTitle 单按钮的文案
 /// dialogClick 点击按钮的行为
-void ShowEUISimpleDialog(
+void showEUISimpleDialog(
     {@required BuildContext context,
     bool barrierDismissible = true,
     String title,
@@ -485,11 +485,11 @@ showEUIInputAlertDialog(
 }
 
 class EUIAndroidDialogHeader extends StatelessWidget {
-  String message;
-  String title;
-  bool hasInputBox;
-  String hintText;
-  ValueChanged<String> valueChanged;
+  final String message;
+  final String title;
+  final bool hasInputBox;
+  final String hintText;
+  final ValueChanged<String> valueChanged;
 
   EUIAndroidDialogHeader(
       {this.title = '',
@@ -500,7 +500,6 @@ class EUIAndroidDialogHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -562,11 +561,11 @@ class EUIAndroidDialogHeader extends StatelessWidget {
 }
 
 class EUIIOSDialogHeader extends StatelessWidget {
-  String message;
-  String title;
-  bool hasInputBox;
-  String hintText;
-  ValueChanged<String> valueChanged;
+  final String message;
+  final String title;
+  final bool hasInputBox;
+  final String hintText;
+  final ValueChanged<String> valueChanged;
 
   EUIIOSDialogHeader(
       {this.title = '',
@@ -577,7 +576,6 @@ class EUIIOSDialogHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[

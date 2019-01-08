@@ -10,24 +10,23 @@ import 'package:flutter/material.dart';
 /// onClick: GestureTapCallback对象，点击事件
 
 class EUIButton extends StatelessWidget {
-  double width;
-  double height = 45.0;
-  bool enable = true;
-  String title;
-  GestureTapCallback onClick;
+  final double width;
+  final String title;
+  final GestureTapCallback onClick;
+  final bool enable;
+  final double height;
 
   EUIButton(
       {this.enable = true,
       this.width,
       this.height = 45.0,
       this.title = '',
-      this.onClick}) {}
+      this.onClick});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GestureDetector(
-      onTap: this.enable ? onClick : null,
+      onTap: enable ? onClick : null,
       child: Container(
         decoration: BoxDecoration(
             color: _color(),
@@ -38,7 +37,7 @@ class EUIButton extends StatelessWidget {
         height: height,
         child: Center(
           child: Text(
-            this.title,
+            title,
             style: TextStyle(fontSize: 17.0, color: Colors.white),
           ),
         ),

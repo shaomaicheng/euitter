@@ -7,7 +7,6 @@ import 'empty.dart';
 class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         appBar: AppBar(
           title: Text('按钮'),
@@ -63,12 +62,18 @@ class ButtonWidget extends StatelessWidget {
   }
 }
 
-class DialogWidget extends StatelessWidget {
-  String inputText = '';
+class DialogWidget extends StatefulWidget {
 
   @override
+  State<StatefulWidget> createState() {
+    return _DialogState();
+  }
+}
+
+class _DialogState extends State<DialogWidget> {
+  String _inputText = '';
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text('对话框'),
@@ -85,7 +90,7 @@ class DialogWidget extends StatelessWidget {
                         width: 100.0,
                         title: '简单对话框',
                         onClick: () {
-                          ShowEUISimpleDialog(
+                          showEUISimpleDialog(
                               context: context,
                               title: '标题',
                               message: '简单对话框',
@@ -174,14 +179,14 @@ class DialogWidget extends StatelessWidget {
                               positiveClick: () {
                                 Navigator.of(context).pop();
                                 Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text('输入的值：${inputText}'),
+                                  content: Text('输入的值：$_inputText'),
                                 ));
                               },
                               negativeClick: () {},
                               negativeTitle: '否',
                               hintText: '提示输入文字',
                               valueChanged: (value) {
-                                inputText = value;
+                                _inputText = value;
                               });
                         },
                       ),
@@ -193,6 +198,7 @@ class DialogWidget extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class ToastWidget extends StatelessWidget {
@@ -244,7 +250,6 @@ class ToastWidget extends StatelessWidget {
 class EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text(

@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 
 
 class EUIEmptyWidget extends StatelessWidget {
-  String message;
+  final String message;
 
   EUIEmptyWidget({this.message = '暂时没有数据哦'});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       child: Center(
         child: Column(

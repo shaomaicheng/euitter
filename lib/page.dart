@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'button.dart';
 import 'toast.dart';
 import 'empty.dart';
+import 'error_page.dart';
 
 class ButtonWidget extends StatelessWidget {
   @override
@@ -63,7 +64,6 @@ class ButtonWidget extends StatelessWidget {
 }
 
 class DialogWidget extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _DialogState();
@@ -72,6 +72,7 @@ class DialogWidget extends StatefulWidget {
 
 class _DialogState extends State<DialogWidget> {
   String _inputText = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -198,7 +199,6 @@ class _DialogState extends State<DialogWidget> {
       ),
     );
   }
-
 }
 
 class ToastWidget extends StatelessWidget {
@@ -214,17 +214,16 @@ class ToastWidget extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top: 20.0),
-                  child: Center(
-                    child: EUIButton(
-                      width: 200.0,
-                      title: '弹一条普通的toast',
-                      onClick: () {
-                        Toast.showToast(context, '这是一条普通的toast');
-                      },
-                    ),
-                  )
-                ),
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: EUIButton(
+                        width: 200.0,
+                        title: '弹一条普通的toast',
+                        onClick: () {
+                          Toast.showToast(context, '这是一条普通的toast');
+                        },
+                      ),
+                    )),
                 Container(
                     margin: EdgeInsets.only(top: 20.0),
                     child: Center(
@@ -232,11 +231,11 @@ class ToastWidget extends StatelessWidget {
                         width: 200.0,
                         title: '弹一条文字长的toast',
                         onClick: () {
-                          Toast.showToast(context, '这是一条普通的toast啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊');
+                          Toast.showToast(context,
+                              '这是一条普通的toast啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊');
                         },
                       ),
-                    )
-                )
+                    ))
               ],
             ),
           );
@@ -246,24 +245,46 @@ class ToastWidget extends StatelessWidget {
   }
 }
 
-
 class EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '空视图'
-        ),
+        title: Text('空视图'),
       ),
       body: Builder(
         builder: (context) {
           return Container(
-            child: EUIEmptyWidget(message: '暂时没有观看记录',),
+            child: EUIEmptyWidget(
+              message: '暂时没有观看记录',
+            ),
           );
         },
       ),
     );
   }
+}
 
+class ErrorAndReloadWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('出错提示页'),
+      ),
+      body: Builder(
+        builder: (context) {
+          return Container(
+            child: EUIErrorPageWidget(
+              errorMessage: '不同情况出错提示文字',
+              reloadCallback: () {
+                Scaffold.of(context)
+                    .showSnackBar(SnackBar(content: Text('重新加载')));
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
 }

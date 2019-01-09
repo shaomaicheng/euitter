@@ -4,7 +4,7 @@ import 'button.dart';
 import 'toast.dart';
 import 'empty.dart';
 import 'error_page.dart';
-import 'pull_refresh.dart';
+import 'package:eui/refresh/eui_refresh.dart';
 
 class ButtonWidget extends StatelessWidget {
   @override
@@ -302,7 +302,21 @@ class PullRefreshWidget extends StatelessWidget {
       body: Builder(
         builder: (context) {
           return Container(
-            child: EUIPullRefreshWidget(),
+            child: EUIRefreshWidget(child: ListView.builder(
+              itemCount: 30,
+              itemBuilder: (context, index) {
+                return Container(
+                  child: Center(
+                    child: Text(
+                      'EUI',
+                      style: TextStyle(
+                        fontSize: 30.0
+                      ),
+                    ),
+                  ),
+                );
+              },
+            )),
           );
         },
       ),

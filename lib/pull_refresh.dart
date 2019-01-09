@@ -30,7 +30,10 @@ class _EUIPullRefreshState extends State<EUIPullRefreshWidget> {
     });
   }
 
-  bool _handleGlowNotification(OverscrollIndicatorNotification notification) {
+  bool _handleGlowNotification(ScrollNotification notification) {
+    if (notification is ScrollStartNotification) {
+      print('is scrollstyartnotification');
+    }
     if (isTop) {
       print('下拉刷新');
     }
@@ -56,29 +59,18 @@ class _EUIPullRefreshState extends State<EUIPullRefreshWidget> {
               ),
               Expanded(
                 child: Container(
-//                  child: NotificationListener<ScrollNotification>(
-//                    key: GlobalKey(),
-//                    child: NotificationListener<OverscrollIndicatorNotification>(
-//                      onNotification: _handleGlowNotification,
-//                      child: ListView.builder(
-//                        controller: _scrollController,
-//                        itemCount: 200,
-//                        itemBuilder: (context, index) {
-//                          return Container(child: Text('dog', style: TextStyle(
-//                              fontSize: 30.0
-//                          ),),);
-//                        },
-//                      ),
-//                    ),
-//                  ),
-                child: RefreshIndicator(
-                    child: ListView.builder(itemCount:200, itemBuilder: (context, index) {
-                      return Container(child: Text('dog', style: TextStyle(
-                        fontSize: 30.0
-                      ), ),);
-                    }),
-                    onRefresh: () {}
-                ),
+                  child: NotificationListener(
+                    onNotification: _handleGlowNotification,
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        itemCount: 200,
+                        itemBuilder: (context, index) {
+                          return Container(child: Text('dog', style: TextStyle(
+                              fontSize: 30.0
+                          ),),);
+                        },
+                      ),
+                  ),
                 ),
               )
             ],

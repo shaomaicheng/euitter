@@ -14,6 +14,7 @@ class EUIAPP extends StatelessWidget {
         '/toast': (context) => ToastWidget(),
         '/empty': (context) => EmptyWidget(),
         '/error': (context) => ErrorAndReloadWidget(),
+        '/pullrefresh': (context) => PullRefreshWidget(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -52,7 +53,8 @@ class EUIWidget extends StatelessWidget {
     ERouter('/dialog', '对话框'),
     ERouter('/toast', 'toast'),
     ERouter('/empty', '空视图'),
-    ERouter('/error', '错误提示')
+    ERouter('/error', '错误提示'),
+    ERouter('/pullrefresh', '下拉刷新'),
   ];
 
   @override

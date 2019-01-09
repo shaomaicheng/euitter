@@ -4,6 +4,7 @@ import 'button.dart';
 import 'toast.dart';
 import 'empty.dart';
 import 'error_page.dart';
+import 'pull_refresh.dart';
 
 class ButtonWidget extends StatelessWidget {
   @override
@@ -287,4 +288,25 @@ class ErrorAndReloadWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class PullRefreshWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '下拉刷新'
+        ),
+      ),
+      body: Builder(
+        builder: (context) {
+          return Container(
+            child: EUIPullRefreshWidget(),
+          );
+        },
+      ),
+    );
+  }
+
 }

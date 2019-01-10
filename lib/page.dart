@@ -295,32 +295,39 @@ class PullRefreshWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '下拉刷新'
-        ),
+        title: Text('下拉刷新'),
       ),
       body: Builder(
         builder: (context) {
           return Container(
-            child: EUIRefreshWidget(child: ListView.builder(
+            child: EUIRefreshWidget(
+                child: ListView.builder(
               itemCount: 30,
               itemBuilder: (context, index) {
                 return Container(
+                  margin: EdgeInsets.all(10.0),
                   child: Center(
                     child: Text(
-                      'EUI',
-                      style: TextStyle(
-                        fontSize: 30.0
-                      ),
+                      'EUI $index',
+                      style: TextStyle(fontSize: 30.0),
                     ),
                   ),
                 );
               },
-            )),
+            ),
+            onRefresh: () {
+              return Future.delayed(Duration(seconds: 2)).then((v) {
+                print('下拉刷新');
+              });
+            },
+            onLoad: () {
+              return Future.delayed(Duration(seconds: 2)).then((v) {
+                print('上拉加载');
+              });
+            },),
           );
         },
       ),
     );
   }
-
 }

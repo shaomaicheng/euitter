@@ -91,7 +91,7 @@ class EUIRefreshIndicator extends StatefulWidget {
   const EUIRefreshIndicator({
     Key key,
     @required this.child,
-    this.maxRefreshHeight = 100.0,
+    this.maxRefreshHeight = 70.0,
     @required this.onRefresh,
     @required this.onLoad,
     this.refreshWidget,
@@ -172,9 +172,9 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
   bool isLoadingHidden = true;
 
   static final Animatable<double> _kDragSizeFactorLimitTween =
-  Tween<double>(begin: 0.0, end: _kDragSizeFactorLimit);
+      Tween<double>(begin: 0.0, end: _kDragSizeFactorLimit);
   static final Animatable<double> _kLoadingDragSizeFactorLimitTween =
-  Tween<double>(begin: 0.0, end: _kDragSizeFactorLimit);
+      Tween<double>(begin: 0.0, end: _kDragSizeFactorLimit);
 
   @override
   void initState() {
@@ -283,10 +283,10 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
           _mode == RefreshIndicatorMode.loadingArmed) {
         if (notification.metrics.extentBefore >=
             notification.metrics.maxScrollExtent) {
-          //_loadingDragOffset+=notification.scrollDelta;
-          //_checkDragOffset(notification.metrics.viewportDimension);
+          _loadingDragOffset+=notification.scrollDelta;
+          _checkDragOffset(notification.metrics.viewportDimension);
         } else {
-          // _dismiss(_RefreshIndicatorMode.loadingCanceled);
+//           _dismiss(_RefreshIndicatorMode.loadingCanceled);
 
         }
       }
@@ -299,14 +299,13 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
         _show();
       }
     } else if (notification is OverscrollNotification) {
-      //print("scrollDelta:${notification.overscroll}");
       if (_mode == RefreshIndicatorMode.drag ||
           _mode == RefreshIndicatorMode.armed) {
         var dragPercent = _dragOffset / widget.maxRefreshHeight;
-        _dragOffset -= notification.overscroll /
-            (dragPercent < 0.3
-                ? 2.0
-                : dragPercent < 0.5 ? 4.0 : dragPercent < 0.75 ? 8.0 : 16.0);
+        _dragOffset -= notification.overscroll / 2;
+//            (dragPercent < 0.3
+//                ? 2.0
+//                : dragPercent < 0.5 ? 4.0 : dragPercent < 0.75 ? 8.0 : 16.0);
         _checkDragOffset(notification.metrics.viewportDimension);
       } else if (_mode == RefreshIndicatorMode.loadingDrag ||
           _mode == RefreshIndicatorMode.loadingArmed) {
@@ -330,7 +329,7 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
           _dismiss(RefreshIndicatorMode.loadingCanceled);
           break;
         default:
-        // do nothing
+          // do nothing
           break;
       }
     }
@@ -395,6 +394,9 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
       if (_mode == RefreshIndicatorMode.loadingDrag &&
           _fingerLoadingOffset >= 1.0) {
         _mode = RefreshIndicatorMode.loadingArmed;
+        setState(() {
+          isLoadingHidden = false;
+        });
         _refreshStatusCallback(_mode);
       }
     }
@@ -416,38 +418,38 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
 //    assert(newMode == _RefreshIndicatorMode.canceled ||
 //        newMode == _RefreshIndicatorMode.done);
     setState(() {
-    _mode = newMode;
-    _refreshStatusCallback(_mode);
+      _mode = newMode;
+      _refreshStatusCallback(_mode);
     });
     switch (_mode) {
-    case RefreshIndicatorMode.done:
-    await _positionController.animateTo(0.0,
-    duration: _kIndicatorScaleDuration);
-    break;
-    case RefreshIndicatorMode.canceled:
-    await _positionController.animateTo(0.0,
-    duration: _kIndicatorScaleDuration);
-    break;
-    case RefreshIndicatorMode.loadingDone:
-    isLoadingHidden = true;
-    await _loadingPositionController.animateTo(0.0,
-    duration: _kIndicatorScaleDuration);
-    break;
-    case RefreshIndicatorMode.loadingCanceled:
-    isLoadingHidden = true;
-    await _loadingPositionController.animateTo(0.0,
-    duration: _kIndicatorScaleDuration);
-    break;
-    default:
-    assert(false);
+      case RefreshIndicatorMode.done:
+        await _positionController.animateTo(0.0,
+            duration: _kIndicatorScaleDuration);
+        break;
+      case RefreshIndicatorMode.canceled:
+        await _positionController.animateTo(0.0,
+            duration: _kIndicatorScaleDuration);
+        break;
+      case RefreshIndicatorMode.loadingDone:
+        isLoadingHidden = true;
+        await _loadingPositionController.animateTo(0.0,
+            duration: _kIndicatorScaleDuration);
+        break;
+      case RefreshIndicatorMode.loadingCanceled:
+        isLoadingHidden = true;
+        await _loadingPositionController.animateTo(0.0,
+            duration: _kIndicatorScaleDuration);
+        break;
+      default:
+        assert(false);
     }
     if (mounted && _mode == newMode) {
-    _dragOffset = null;
-    _loadingDragOffset = null;
-    _isIndicatorAtTop = null;
-    setState(() {
-    _mode = null;
-    });
+      _dragOffset = null;
+      _loadingDragOffset = null;
+      _isIndicatorAtTop = null;
+      setState(() {
+        _mode = null;
+      });
     }
   }
 
@@ -461,7 +463,7 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
 
     _positionController
         .animateTo(1.0 / _kDragSizeFactorLimit,
-        duration: _kIndicatorSnapDuration)
+            duration: _kIndicatorSnapDuration)
         .then<void>((void value) {
       if (mounted && _mode == RefreshIndicatorMode.snap) {
         assert(widget.onRefresh != null);
@@ -503,7 +505,7 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
 
     _loadingPositionController
         .animateTo(1.0 / _kDragSizeFactorLimit,
-        duration: _kIndicatorSnapDuration)
+            duration: _kIndicatorSnapDuration)
         .then<void>((void value) {
       if (mounted && _mode == RefreshIndicatorMode.loadingSnap) {
         setState(() {
@@ -561,6 +563,10 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
 
   final GlobalKey _key = GlobalKey();
 
+  _headerHeight() {
+    return widget.maxRefreshHeight * _fingerOffset;
+  }
+
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterialLocalizations(context));
@@ -591,9 +597,9 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
-                height: widget.maxRefreshHeight * _fingerOffset,
+                height: _headerHeight(),
                 child: OverflowBox(
-                  maxHeight: double.infinity,
+//                  maxHeight: double.infinity,
                   // padding: const EdgeInsets.all(8.0),
                   child: widget.refreshWidget ?? _buildDefaultHeader(),
                 ),
@@ -609,39 +615,6 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
             ],
           ),
         ),
-//        Positioned(
-//          top: _isIndicatorAtTop ? 0.0 : null,
-//          bottom: !_isIndicatorAtTop ? 0.0 : null,
-//          left: 0.0,
-//          right: 0.0,
-//          child: SizeTransition(
-//            axisAlignment: _isIndicatorAtTop ? 1.0 : -1.0,
-//            sizeFactor: _positionFactor, // this is what brings it down
-//            child: Container(
-//              padding: _isIndicatorAtTop
-//                  ? EdgeInsets.only(top: widget.displacement)
-//                  : EdgeInsets.only(bottom: widget.displacement),
-//              alignment: _isIndicatorAtTop
-//                  ? Alignment.topCenter
-//                  : Alignment.bottomCenter,
-//              child: ScaleTransition(
-//                scale: _scaleFactor,
-//                child: AnimatedBuilder(
-//                  animation: _positionController,
-//                  builder: (BuildContext context, Widget child) {
-//                    return RefreshProgressIndicator(
-//                      semanticsLabel: widget.semanticsLabel ?? MaterialLocalizations.of(context).refreshIndicatorSemanticLabel,
-//                      semanticsValue: widget.semanticsValue,
-//                      value: showIndeterminateIndicator ? null : _value.value,
-//                      valueColor: _valueColor,
-//                      backgroundColor: widget.backgroundColor,
-//                    );
-//                  },
-//                ),
-//              ),
-//            ),
-//          ),
-//        ),
       ],
     );
   }

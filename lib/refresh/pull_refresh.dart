@@ -608,6 +608,7 @@ class EUIRefreshIndicatorState extends State<EUIRefreshIndicator>
               Offstage(
                 offstage: isLoadingHidden,
                 child: Container(
+                  margin: EdgeInsets.only(bottom: 20.0),
                   height: widget.maxRefreshHeight * _fingerLoadingOffset,
                   child: widget.loadingWidget ?? _buildDefaultLoading(),
                 ),

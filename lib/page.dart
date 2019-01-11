@@ -1,4 +1,5 @@
 import 'package:eui/dialog.dart';
+import 'package:eui/refresh/smart_refresher.dart';
 import 'package:flutter/material.dart';
 import 'button.dart';
 import 'toast.dart';
@@ -290,7 +291,17 @@ class ErrorAndReloadWidget extends StatelessWidget {
   }
 }
 
-class PullRefreshWidget extends StatelessWidget {
+class PullRefreshWidget extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _PullRefreshState();
+  }
+}
+
+class _PullRefreshState extends State<PullRefreshWidget> {
+  int count = 30;
+  bool hasMore = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -301,30 +312,43 @@ class PullRefreshWidget extends StatelessWidget {
         builder: (context) {
           return Container(
             child: EUIRefreshWidget(
-                child: ListView.builder(
-              itemCount: 30,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.all(10.0),
-                  child: Center(
-                    child: Text(
-                      'EUI $index',
-                      style: TextStyle(fontSize: 30.0),
+              child: ListView.builder(
+                itemCount: count,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        'EUI $index',
+                        style: TextStyle(fontSize: 30.0),
+                      ),
                     ),
-                  ),
-                );
+                  );
+                },
+              ),
+              hasMore: hasMore,
+              onRefresh: () {
+                return Future.delayed(Duration(seconds: 2)).then((v) {
+                  print('下拉刷新');
+                  setState(() {
+                    count = 30;
+                    hasMore=true;
+                  });
+                });
+              },
+              onLoad: () {
+                return Future.delayed(Duration(seconds: 2)).then((v) {
+                  print('上拉加载');
+                  count += 2;
+                  if (count > 35) {
+                    hasMore = false;
+                  }
+                  setState(() {
+                    count+=2;
+                  });
+                });
               },
             ),
-            onRefresh: () {
-              return Future.delayed(Duration(seconds: 2)).then((v) {
-                print('下拉刷新');
-              });
-            },
-            onLoad: () {
-              return Future.delayed(Duration(seconds: 2)).then((v) {
-                print('上拉加载');
-              });
-            },),
           );
         },
       ),

@@ -1,36 +1,66 @@
-import 'pull_refresh.dart';
-import 'package:eui/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:eui/refresh/pull_refresh.dart';
+
+import 'smart_refresher.dart';
+import 'package:eui/refresh/smart_refresher.dart';
 
 typedef RefreshCallback = Future<void> Function();
 
 typedef LoadingCallback = Future<void> Function();
 
-
 class EUIRefreshWidget extends StatelessWidget {
   final Widget child;
   final RefreshCallback onRefresh;
   final LoadingCallback onLoad;
-
+  final RefreshController refreshController = RefreshController();
+  final bool hasMore;
   EUIRefreshWidget({
     @required this.child,
     @required this.onRefresh,
     @required this.onLoad,
+    @required this.hasMore,
   });
+
+  bool refreshing = false;
 
   @override
   Widget build(BuildContext context) {
-    return EUIRefreshIndicator(
+    return SmartRefresher(
       child: child,
-      onRefresh: onRefresh,
-      onLoad: onLoad,
-      refreshWidget: _EUIRefreshHeader(),
-      loadingWidget: _EUIRefreshHeader(),
+      onRefresh: (up) {
+        if (refreshing) {}
+        refreshing = true;
+        if (up) {
+          // 上拉刷新
+          onRefresh().whenComplete(() {
+            refreshController.sendBack(true, RefreshStatus.completed);
+            refreshing = false;
+          });
+        } else {
+          // 下拉加载
+          onLoad().whenComplete(() {
+            refreshController.sendBack(false, RefreshStatus.idle);
+            refreshing = false;
+          });
+        }
+      },
+      controller: refreshController,
+      enablePullDown: true,
+      enablePullUp: hasMore? true : false,
+      footerBuilder: (context, mode) {
+        return Container(
+          height: 50.0,
+          child: _EUIRefreshHeader(),
+        );
+      },
+      headerBuilder: (context, mode) {
+        return Container(
+          height: 50.0,
+          child: _EUIRefreshHeader(),
+        );
+      },
     );
   }
 }
-
 
 class _EUIRefreshHeader extends StatefulWidget {
   @override
@@ -43,14 +73,12 @@ class _EUIRefreshHeaderState extends State<_EUIRefreshHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70.0,
-      color: Colors.white,
-      child: Container(
-        width: 28.0,
-        height: 46.0,
-        child: Image.asset('images/eui_pencil.png'),
-      )
-    );
+        height: 70.0,
+        color: Colors.white,
+        child: Container(
+          width: 28.0,
+          height: 46.0,
+          child: Image.asset('images/eui_pencil.png'),
+        ));
   }
-
 }

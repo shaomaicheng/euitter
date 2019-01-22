@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'smart_refresher.dart';
 import 'package:eui/refresh/smart_refresher.dart';
+import 'package:eui/eui_pencil.dart';
 
 typedef RefreshCallback = Future<void> Function();
 
@@ -48,13 +49,11 @@ class EUIRefreshWidget extends StatelessWidget {
       enablePullUp: hasMore? true : false,
       footerBuilder: (context, mode) {
         return Container(
-          height: 50.0,
-          child: _EUIRefreshHeader(),
+          child: _EUIRefreshFooter(),
         );
       },
       headerBuilder: (context, mode) {
         return Container(
-          height: 50.0,
           child: _EUIRefreshHeader(),
         );
       },
@@ -62,6 +61,9 @@ class EUIRefreshWidget extends StatelessWidget {
   }
 }
 
+/**
+ * header
+ */
 class _EUIRefreshHeader extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -73,12 +75,21 @@ class _EUIRefreshHeaderState extends State<_EUIRefreshHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 70.0,
-        color: Colors.white,
         child: Container(
-          width: 28.0,
-          height: 46.0,
+          width: 23.0,
+          height: 40.0,
           child: Image.asset('images/eui_pencil.png'),
         ));
   }
+}
+
+/**
+ * footer
+ */
+class _EUIRefreshFooter extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return EUIPencilDrawLineWidget();
+  }
+
 }

@@ -15,6 +15,7 @@ class EUIAPP extends StatelessWidget {
         '/empty': (context) => EmptyWidget(),
         '/error': (context) => ErrorAndReloadWidget(),
         '/pullrefresh': (context) => PullRefreshWidget(),
+        '/pencilDrawLine': (context) => PencilLoadingPage(),
       },
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -55,6 +56,7 @@ class EUIWidget extends StatelessWidget {
     ERouter('/empty', '空视图'),
     ERouter('/error', '错误提示'),
     ERouter('/pullrefresh', '下拉刷新'),
+    ERouter('/pencilDrawLine', '铅笔画线')
   ];
 
   @override

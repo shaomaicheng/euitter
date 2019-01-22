@@ -6,6 +6,7 @@ import 'toast.dart';
 import 'empty.dart';
 import 'error_page.dart';
 import 'package:eui/refresh/eui_refresh.dart';
+import 'eui_pencil.dart';
 
 class ButtonWidget extends StatelessWidget {
   @override
@@ -311,11 +312,13 @@ class _PullRefreshState extends State<PullRefreshWidget> {
       body: Builder(
         builder: (context) {
           return Container(
+            color: Colors.white,
             child: EUIRefreshWidget(
               child: ListView.builder(
                 itemCount: count,
                 itemBuilder: (context, index) {
                   return Container(
+                    color: Colors.white,
                     margin: EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
@@ -354,4 +357,28 @@ class _PullRefreshState extends State<PullRefreshWidget> {
       ),
     );
   }
+}
+
+
+class PencilLoadingPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '铅笔加载'
+          ),
+        ),
+        body: Builder(builder: (context) {
+          return Container(
+            child: Center(
+              child: EUIPencilDrawLineWidget(),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
 }

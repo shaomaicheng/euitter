@@ -86,7 +86,7 @@ class _PencilWidget extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(top: 2.0, right: 23.0, left: 11.5),
-                color: Colors.black,
+                color: Colors.grey,
                 height: 0.5,
                 width: lineWidthAnimation.evaluate(animation),
               )

@@ -64,22 +64,10 @@ class EUIRefreshWidget extends StatelessWidget {
 /**
  * header
  */
-class _EUIRefreshHeader extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _EUIRefreshHeaderState();
-  }
-}
-
-class _EUIRefreshHeaderState extends State<_EUIRefreshHeader> {
+class _EUIRefreshHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Container(
-          width: 23.0,
-          height: 40.0,
-          child: Image.asset('images/eui_pencil.png'),
-        ));
+    return EUIPencilDrawLineWidget();
   }
 }
 

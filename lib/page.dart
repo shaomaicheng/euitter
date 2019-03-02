@@ -1,12 +1,12 @@
-import 'package:eui/dialog.dart';
 import 'package:eui/refresh/eui_refresh.dart';
+import 'package:eui/window/dialog.dart';
 import 'package:flutter/material.dart';
 
-import 'button.dart';
-import 'empty.dart';
-import 'error_page.dart';
-import 'eui_pencil.dart';
-import 'toast.dart';
+import 'package:eui/button/button.dart';
+import 'package:eui/utilview/empty.dart';
+import 'package:eui/utilview/error_page.dart';
+import 'package:eui/utilview/eui_pencil.dart';
+import 'package:eui/window/toast.dart';
 
 class ButtonWidget extends StatelessWidget {
   @override

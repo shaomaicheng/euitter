@@ -1,5 +1,5 @@
+import 'package:eui/constant.dart';
 import 'package:flutter/material.dart';
-import 'constant.dart';
 
 typedef ReloadCallback = void Function();
 

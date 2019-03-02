@@ -1,12 +1,12 @@
 import 'package:eui/dialog.dart';
-import 'package:eui/refresh/smart_refresher.dart';
+import 'package:eui/refresh/eui_refresh.dart';
 import 'package:flutter/material.dart';
+
 import 'button.dart';
-import 'toast.dart';
 import 'empty.dart';
 import 'error_page.dart';
-import 'package:eui/refresh/eui_refresh.dart';
 import 'eui_pencil.dart';
+import 'toast.dart';
 
 class ButtonWidget extends StatelessWidget {
   @override

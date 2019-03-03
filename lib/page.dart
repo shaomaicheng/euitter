@@ -403,6 +403,9 @@ class ShowListItemPage extends StatelessWidget {
                   true,
                   title: '测试的单行的标题',
                   imgUri: 'images/eui_pencil.png',
+                  onArrowClick: () {
+                    Toast.showToast(context, '点击!');
+                  },
                 ),
                 EUIListItem(
                   false,
@@ -411,6 +414,9 @@ class ShowListItemPage extends StatelessWidget {
                   subTitle: '测试的多行的副标题',
                   arrowText: '跳转引导文字',
                   showArrow: true,
+                  onArrowClick: () {
+                    Toast.showToast(context, '点击!');
+                  },
                 ),
                 EUIListItem(
                   true,
@@ -424,7 +430,7 @@ class ShowListItemPage extends StatelessWidget {
                 ),
                 EUIListItem(
                   true,
-                  title: '右侧是自定义view',
+                  title: '右侧是自定义widget',
                   itemType: Type.CUSTOM,
                   right: Container(
                     width: 50.0,
@@ -432,6 +438,19 @@ class ShowListItemPage extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Image.asset('images/eui_pencil.png'),
                   )
+                ),
+                EUIListItem(
+                    true,
+                    title: '无箭头标题文字',
+                    itemType: Type.ARROW,
+                    arrowText: '信息',
+                    showArrow: false,
+                ),
+                EUIListItem(
+                  true,
+                  title: '无箭头标题文字',
+                  itemType: Type.ARROW,
+                  showArrow: false,
                 )
               ],
             ),

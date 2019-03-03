@@ -20,6 +20,7 @@ class EUIListItem extends StatelessWidget {
   /// arrow
   final String arrowText; ///arrow text
   final bool showArrow;
+  final GestureTapCallback onArrowClick;
 
   /// switch
   final bool switchValue;
@@ -37,6 +38,7 @@ class EUIListItem extends StatelessWidget {
         this.itemType = Type.ARROW,
         this.arrowText = '',
         this.showArrow = true,
+        this.onArrowClick,
         this.switchValue = false,
         this.onSwitchChange,
         this.right
@@ -115,22 +117,32 @@ class EUIListItem extends StatelessWidget {
 
   /// row rightwidget
   Widget _arrowWidget() {
-    return Row(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 20.0),
-          child: Text(
-            arrowText,
-            style: arrowTextStyle,
+    return GestureDetector(
+      child: Row(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(
+              top: 20.0,
+              bottom: 20.0,
+              right: showArrow ? 0.0 : 12.0
+            ),
+            child: Text(
+              arrowText,
+              style: arrowTextStyle,
+            ),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 4.0, right: 12.0, top: 12.0, bottom: 12.0),
-          width: 10.0,
-          height: 10.0,
-          child: Image.asset('images/eui_arrow.png'),
-        )
-      ],
+          Offstage(
+            child: Container(
+              margin: EdgeInsets.only(left: 4.0, right: 12.0, top: 12.0, bottom: 12.0),
+              width: 10.0,
+              height: 10.0,
+              child: Image.asset('images/eui_arrow.png'),
+            ),
+            offstage: showArrow? false : true,
+          )
+        ],
+      ),
+      onTap: onArrowClick,
     );
   }
 

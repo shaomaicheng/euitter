@@ -8,12 +8,13 @@ typedef RefreshCallback = Future<void> Function();
 
 typedef LoadingCallback = Future<void> Function();
 
-class EUIRefreshWidget extends StatelessWidget {
+class EUIRefreshWidget extends StatefulWidget {
   final Widget child;
   final RefreshCallback onRefresh;
   final LoadingCallback onLoad;
   final RefreshController refreshController = RefreshController();
   final bool hasMore;
+
   EUIRefreshWidget({
     @required this.child,
     @required this.onRefresh,
@@ -21,32 +22,38 @@ class EUIRefreshWidget extends StatelessWidget {
     @required this.hasMore,
   });
 
-  bool refreshing = false;
+  @override
+  State<StatefulWidget> createState() {
+    return _EUIRefreshState();
+  }
+}
 
+class _EUIRefreshState extends State<EUIRefreshWidget> {
+  bool refreshing = false;
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
-      child: child,
+      child: widget.child,
       onRefresh: (up) {
         if (refreshing) {}
         refreshing = true;
         if (up) {
           // 上拉刷新
-          onRefresh().whenComplete(() {
-            refreshController.sendBack(true, RefreshStatus.completed);
+          widget.onRefresh().whenComplete(() {
+            widget.refreshController.sendBack(true, RefreshStatus.completed);
             refreshing = false;
           });
         } else {
           // 下拉加载
-          onLoad().whenComplete(() {
-            refreshController.sendBack(false, RefreshStatus.idle);
+          widget.onLoad().whenComplete(() {
+            widget.refreshController.sendBack(false, RefreshStatus.idle);
             refreshing = false;
           });
         }
       },
-      controller: refreshController,
+      controller: widget.refreshController,
       enablePullDown: true,
-      enablePullUp: hasMore? true : false,
+      enablePullUp: widget.hasMore? true : false,
       footerBuilder: (context, mode) {
         return Container(
           child: _EUIRefreshFooter(),
@@ -59,11 +66,10 @@ class EUIRefreshWidget extends StatelessWidget {
       },
     );
   }
+
 }
 
-/**
- * header
- */
+/// header
 class _EUIRefreshHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -71,9 +77,7 @@ class _EUIRefreshHeader extends StatelessWidget {
   }
 }
 
-/**
- * footer
- */
+/// footer
 class _EUIRefreshFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

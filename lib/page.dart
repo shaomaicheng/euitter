@@ -411,6 +411,27 @@ class ShowListItemPage extends StatelessWidget {
                   subTitle: '测试的多行的副标题',
                   arrowText: '跳转引导文字',
                   showArrow: true,
+                ),
+                EUIListItem(
+                  true,
+                  title: '带开关的',
+                  subTitle: '设置了也不会生效的',
+                  itemType: Type.SWITCH,
+                  switchValue: false,
+                  onSwitchChange: (value) {
+                    print('switch是否open: $value');
+                  },
+                ),
+                EUIListItem(
+                  true,
+                  title: '右侧是自定义view',
+                  itemType: Type.CUSTOM,
+                  right: Container(
+                    width: 50.0,
+                    height: 50.0,
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Image.asset('images/eui_pencil.png'),
+                  )
                 )
               ],
             ),

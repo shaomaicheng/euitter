@@ -1,3 +1,4 @@
+import 'package:eui/item/item_list.dart';
 import 'package:eui/refresh/eui_refresh.dart';
 import 'package:eui/window/dialog.dart';
 import 'package:flutter/material.dart';
@@ -374,6 +375,44 @@ class PencilLoadingPage extends StatelessWidget {
           return Container(
             child: Center(
               child: EUIPencilDrawLineWidget(),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+}
+
+class ShowListItemPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            '列表项'
+          ),
+        ),
+        body: Builder(builder: (context) {
+          return Container(
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                EUIListItem(
+                  true,
+                  title: '测试的单行的标题',
+                  imgUri: 'images/eui_pencil.png',
+                ),
+                EUIListItem(
+                  false,
+                  title: '测试的多行的标题',
+                  imgUri: 'images/eui_pencil.png',
+                  subTitle: '测试的多行的副标题',
+                  arrowText: '跳转引导文字',
+                  showArrow: true,
+                )
+              ],
             ),
           );
         }),

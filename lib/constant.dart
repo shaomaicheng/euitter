@@ -2,3 +2,4 @@
 import 'dart:ui';
 
 const eui_main_blue = Color.fromARGB(0xff, 0x2E, 0x86, 0xFF);
+const eui_listitem_splitline_color = Color.fromARGB(0xff, 0xF3, 0xF4, 0xF8);

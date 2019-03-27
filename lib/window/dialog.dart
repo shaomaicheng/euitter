@@ -457,7 +457,6 @@ Widget _iosAlertDialogWidget(
 /// 反面按钮文字
 /// 反面按钮点击事件
 /// 是否有一个输入框
-/// 输入框的隐藏文字
 /// 输入框内容变化的监听回调
 showEUIInputAlertDialog(
     {@required BuildContext context,

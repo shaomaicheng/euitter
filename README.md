@@ -4,7 +4,149 @@ msiotng eui conponent
 
 ## 使用说明
 
-1. 列表项目
+1. # 按钮
+
+组件名称为 `EUIButton`
+
+类型包括：
+* 正常的普通按钮
+* 大按钮
+* 可以点击和可以禁用的按钮
+
+属性：
+* width : 宽度
+* height : 宽度，默认 45
+* enable: 是否是可用状态
+* title: 文字
+* onClick: GestureTapCallback对象，点击事件
+
+2. # 对话框
+
+对话框包括：
+* 简单对话框
+* 只有标题的⚠️对话框
+* 可以输入的对话框
+* 拥有一个文本输入框的选择提示对话框
+
+分别调用的代码为
+
+```dart
+/// barrierDismissible 点击其他区域是否会消失
+/// title 标题
+/// message 信息
+/// btnTitle 单按钮的文案
+/// dialogClick 点击按钮的行为
+
+void showEUISimpleDialog(
+    {@required BuildContext context,
+    bool barrierDismissible = true,
+    String title,
+    String message = '',
+    @required String btnTitle,
+    DialogClick dialogClick})
+```
+
+```dart
+/// barrierDismissible 点击其他区域是否可以关闭 默认为false
+/// title 标题 必须传
+/// warningText 警告文案 必须传
+
+void showEUIWarningDialog({
+  @required BuildContext context,
+  bool barrierDismissible = false,
+  String title,
+  @required String warningText,
+})
+```
+
+```dart
+/// title 标题
+/// message 信息，可以不传
+/// 正面按钮文字 positiveTitle
+/// 正面按钮点击事件 positiveClick
+/// 反面按钮文字 negativeTitle
+/// 反面按钮点击事件 negativeClick
+/// 是否有一个输入框 hasInputBox
+/// 输入框的隐藏文字 hintText
+/// 输入框内容变化的监听回调 valueChanged
+
+void showEUIAlertDialog(
+    {@required BuildContext context,
+    bool barrierDismissible = true,
+    String title,
+    String message = '',
+    @required String positiveTitle,
+    @required DialogClick positiveClick,
+    @required String negativeTitle,
+    @required DialogClick negativeClick,
+    bool hasInputBox = false,
+    String hintText = '请输入文字',
+    ValueChanged<String> valueChanged})
+```
+
+```dart
+/// title 标题
+/// message 信息，可以不传
+/// positiveTitle 正面按钮文字
+/// positiveClick 正面按钮点击事件
+/// negativeTitle 反面按钮文字
+/// negativeClick 反面按钮点击事件
+/// hintText 否有一个输入框
+/// hintText 输入框的隐藏文字
+/// valueChanged 输入框内容变化的监听回调
+
+showEUIInputAlertDialog(
+    {@required BuildContext context,
+    bool barrierDismissible = true,
+    String title,
+    String message = '',
+    @required String positiveTitle,
+    @required DialogClick positiveClick,
+    @required String negativeTitle,
+    @required DialogClick negativeClick,
+    String hintText,
+    ValueChanged<String> valueChanged})
+```
+
+3. # 空视图
+
+EUIEmptyWidget
+
+参数： message 提示文案
+
+4. # 错误提示
+
+EUIErrorPageWidget
+参数：
+* errorMessage 错误文案
+* reloadCallback 重新加载的回调
+
+5. # TOAST
+
+Toast.showToast(context, message)
+
+message: toast 的提示文案
+
+6. # ✏️ 画画的加载效果
+
+EUIPencilDrawLineWidget
+
+7. # 下拉刷新
+
+组件名称： EUIRefreshWidget
+
+必须传递的属性：
+* child Widget 例如listview
+* onRefresh RefreshCallback 下拉刷新的回调
+* onLoad LoadingCallback 上拉加载的回调
+* hasMore 是否有更多的数据可以加载
+
+使用方式：
+
+如果没有数据的时候，需要手动刷新 state 里面的hasMore 来控制是否可以上拉加载
+同理，如果下拉刷新在 hasMore 为false的时候调用，需要重新置为 true
+
+8. # 列表项目
 
 通用列表项，一般用在个人中心页面之类的，大概包括如下三种
 * 导航， 右边是文字、小箭头，两者都在或者都不在的ui组件

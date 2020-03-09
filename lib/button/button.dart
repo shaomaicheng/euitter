@@ -8,20 +8,20 @@ import 'package:flutter/material.dart';
 /// enable: 是否是可用状态
 /// title: 文字
 /// onClick: GestureTapCallback对象，点击事件
-
 class EUIButton extends StatelessWidget {
   final double width;
   final String title;
   final GestureTapCallback onClick;
   final bool enable;
   final double height;
+  final Color color;
 
-  EUIButton(
-      {this.enable = true,
-      this.width,
-      this.height = 45.0,
-      this.title = '',
-      this.onClick});
+  EUIButton({this.enable = true,
+    this.width,
+    this.height = 45.0,
+    this.title = '',
+    this.color,
+    this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class EUIButton extends StatelessWidget {
 
   _color() {
     return enable
-        ? Color.fromARGB(0xff, 0x2E, 0x86, 0xFF)
-        : Color.fromARGB(0x4D, 0x2E, 0x86, 0xFF);
+        ? this.color == null ? Color.fromARGB(0xff, 0x2E, 0x86, 0xFF) : this.color
+    : Color.fromARGB(0x4D, 0x2E, 0x86, 0xFF);
   }
 }

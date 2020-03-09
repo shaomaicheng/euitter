@@ -14,12 +14,16 @@ class EUIRefreshWidget extends StatefulWidget {
   final LoadingCallback onLoad;
   final RefreshController refreshController = RefreshController();
   final bool hasMore;
+  final Widget refrshWidget;
+  final Widget loadMoreWidget;
 
   EUIRefreshWidget({
     @required this.child,
     @required this.onRefresh,
     @required this.onLoad,
     @required this.hasMore,
+    this.refrshWidget,
+    this.loadMoreWidget
   });
 
   @override
@@ -56,12 +60,14 @@ class _EUIRefreshState extends State<EUIRefreshWidget> {
       enablePullUp: widget.hasMore? true : false,
       footerBuilder: (context, mode) {
         return Container(
-          child: _EUIRefreshFooter(),
+//          child: _EUIRefreshFooter(),
+        child: widget.loadMoreWidget == null ? _EUIRefreshFooter() : widget.loadMoreWidget,
         );
       },
       headerBuilder: (context, mode) {
         return Container(
-          child: _EUIRefreshHeader(),
+//          child: _EUIRefreshHeader(),
+          child: widget.refrshWidget == null ? _EUIRefreshFooter() : widget.refrshWidget,
         );
       },
     );

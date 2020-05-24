@@ -21,6 +21,7 @@ class EUIListItem extends StatelessWidget {
   final String arrowText; ///arrow text
   final bool showArrow;
   final GestureTapCallback onArrowClick;
+  final GestureTapCallback onItemClick;
 
   /// switch
   final bool switchValue;
@@ -39,6 +40,7 @@ class EUIListItem extends StatelessWidget {
         this.arrowText = '',
         this.showArrow = true,
         this.onArrowClick,
+        this.onItemClick,
         this.switchValue = false,
         this.onSwitchChange,
         this.right
@@ -58,44 +60,49 @@ class EUIListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Material(
       color: Colors.white,
-        height: 60.0,
-        child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Row(
+      child: InkWell(
+        onTap: this.onItemClick ?? () {},
+        child: Container(
+            height: 60.0,
+            child: Column(
               children: <Widget>[
-                Offstage(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: this.signLine?20.0:12.0, horizontal: 16.0),
-                    child: _Icon(
-                        imgUri,
-                        iconSize: this.signLine? IconSize.NORMAL:IconSize.LARGE),
-                  ),
-                  offstage: imgUri.isEmpty?true:false,
-                ),
                 Expanded(
-                  child: Container(
-                      margin: EdgeInsets.only(
-                        top: this.signLine?20.0 : 9.0,
-                        bottom: this.signLine?20.0 : 9.0,
-                        left: imgUri.isEmpty? 12.0 : 0.0,
+                  child: Row(
+                    children: <Widget>[
+                      Offstage(
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: this.signLine?20.0:12.0, horizontal: 16.0),
+                          child: _Icon(
+                              imgUri,
+                              iconSize: this.signLine? IconSize.NORMAL:IconSize.LARGE),
+                        ),
+                        offstage: imgUri.isEmpty?true:false,
                       ),
-                      child: _whichTitle()
+                      Expanded(
+                        child: Container(
+                            margin: EdgeInsets.only(
+                              top: this.signLine?20.0 : 9.0,
+                              bottom: this.signLine?20.0 : 9.0,
+                              left: imgUri.isEmpty? 12.0 : 0.0,
+                            ),
+                            child: _whichTitle()
+                        ),
+                      ),
+                      _rightWidget(),
+                    ],
                   ),
                 ),
-                _rightWidget(),
+                Container(
+                  height: 1.0,
+                  color: eui_listitem_splitline_color,
+                  margin: EdgeInsets.symmetric(horizontal: 12.0),
+                )
               ],
-            ),
-          ),
-          Container(
-            height: 1.0,
-            color: eui_listitem_splitline_color,
-            margin: EdgeInsets.symmetric(horizontal: 12.0),
-          )
-        ],
-      )
+            )
+        ),
+      ),
     );
   }
 
